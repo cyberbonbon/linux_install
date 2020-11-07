@@ -1,0 +1,2 @@
+# Gondor Apt-Cacher NG
+Acquire::http::Proxy "http://morannon.gondor.middleearth.network:3142";
