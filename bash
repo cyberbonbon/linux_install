@@ -1,4 +1,4 @@
 #!/bin/bash
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/01proxy
-sudo chown root:root 01proxy
-sudo mv 01proxy /etc/apt/apt.conf.d/01proxy
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
+sudo chown root:root gondor_cache
+sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
