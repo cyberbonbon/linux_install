@@ -1,5 +1,5 @@
 # Gondor Apt-Cacher NG
-Acquire::http::Proxy "http://morannon.gondor.middleearth.network:3142";
+Acquire::http::Proxy "http://morannon.gondor.middleearth.network:3142"
 #
 # Dunedain Apt-Cacher NG
 Acquire::http::Proxy "http://example.dunedain.middleearth.network:3142";
