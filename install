@@ -1,0 +1,4 @@
+#!/bin/bash
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/apt_cacher_ng
+sudo chown root:root apt_cacher_ng
+sudo mv apt_cacher_ng /etc/apt/apt.conf.d/01proxy
