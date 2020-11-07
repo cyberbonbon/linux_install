@@ -1,1 +1,2 @@
 Acquire::http::Proxy "http://morannon.gondor.middleearth.network:3142";
+Acquire::http::Proxy "http://dimrill.gondor.middleearth.network:3142";
