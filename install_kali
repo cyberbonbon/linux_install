@@ -12,7 +12,7 @@ sudo apt-get update && sudo apt-get dist-upgrade -y
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install ssh smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
+sudo apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
 
 # Configure SSH Server to always run
 sudo update-rc.d -f ssh remove
@@ -35,8 +35,14 @@ sudo chown cyberbonbon:cyberbonbon authorized_keys
 mv authorized_keys .ssh/authorized_keys
 
 # Force Restart of the SSH server
-sudo service ssh stop
-sudo service ssh start
+sudo systemctl enable ssh.service
+sudo systemctl start ssh
+
+# Enable RDP sessions
+systemctl start xrdp
+systemctl start xrdp-sesman
+systemctl enable xrdp
+systemctl enable xrdp-sesman
 
 # Copy NTP configuration and set the time zone
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/ntp.conf
