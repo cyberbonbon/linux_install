@@ -53,6 +53,6 @@ sudo mkdir -p /nfs/MinasTirith/CyberSecurityReadOnly
 
 # Append NFS mounts to fstab file
 echo '# NFS Shares' | sudo tee -a /etc/fstab
-echo 'morannon.gondor.middleearth.network:/mnt/user/CyberSecurityClubStorage    /nfs/MinasTirith/CyberSecurityClubStorage   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
-echo 'morannon.gondor.middleearth.network:/mnt/user/CyberSecurityReadOnly    /nfs/MinasTirith/CyberSecurityReadOnly   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
+echo 'minastirith.gondor.middleearth.network:/mnt/user/CyberSecurityClubStorage    /nfs/MinasTirith/CyberSecurityClubStorage   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
+echo 'minastirith.gondor.middleearth.network:/mnt/user/CyberSecurityReadOnly    /nfs/MinasTirith/CyberSecurityReadOnly   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 sudo mount -av
