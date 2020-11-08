@@ -6,13 +6,13 @@ sudo chown root:root gondor_cache
 sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
 
 # Perform a system update
-sudo apt-get update && sudo apt-get dist-upgrade -y
+sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
 
 # Disable NTP while configuring new settings
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
 
 # Configure SSH Server to always run
 sudo systemctl enable ssh.service
