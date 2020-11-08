@@ -15,12 +15,14 @@ sudo timedatectl set-ntp off
 sudo apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
 
 # Configure SSH Server to always run
-sudo update-rc.d -f ssh remove
-sudo update-rc.d -f ssh defaults
+sudo systemctl enable ssh.service
+sudo systemctl start ssh
+#sudo update-rc.d -f ssh remove
+#sudo update-rc.d -f ssh defaults
 
 # Reset Host SSH Keys
-sudo rm -rf /etc/ssh/ssh_host_*
-sudo dpkg-reconfigure openssh-server
+#sudo rm -rf /etc/ssh/ssh_host_*
+#sudo dpkg-reconfigure openssh-server
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
@@ -33,10 +35,6 @@ wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/authorized
 mkdir .ssh
 sudo chown cyberbonbon:cyberbonbon authorized_keys
 mv authorized_keys .ssh/authorized_keys
-
-# Force Restart of the SSH server
-sudo systemctl enable ssh.service
-sudo systemctl start ssh
 
 # Enable RDP sessions
 systemctl start xrdp
