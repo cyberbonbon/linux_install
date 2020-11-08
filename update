@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Copy the Apt-cacher-NG proxy configuration
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
+sudo chown root:root gondor_cache
+sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
+
+# Perform a system update
+sudo apt-get update && sudo apt-get dist-upgrade -y
+
+# Disable NTP while configuring new settings
+sudo timedatectl set-ntp off
+
+# Install default tools
+sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools -y
+
+# Copy the default sshd configuration file
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
+sudo chown root:root sshd_config
+sudo chmod 644 sshd_config
+sudo mv sshd_config /etc/ssh/sshd_config
+
+# Copy SNMP configuration template
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
+sudo chown root:root gondor.snmpd.conf
+sudo chmod 644 gondor.snmpd.conf
+sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
+
+# Copy NTP configuration and set the time zone
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/ntp.conf
+sudo chown root:root ntp.conf
+sudo chmod 644 ntp.conf
+sudo mv ntp.conf /etc/ntp.conf
+
+# Gondor time zone
+sudo timedatectl set-timezone America/New_York
