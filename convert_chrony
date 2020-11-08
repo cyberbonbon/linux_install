@@ -1,0 +1,21 @@
+# Disable NTP while configuring new settings
+sudo timedatectl set-ntp off
+
+# Remove NTP
+sudo apt-get remove ntp -y
+sudo apt autoremove -y
+sudo rm /etc/ntp.conf
+
+# Copy Chrony NTP configuration and set the time zone
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
+sudo chown root:root chrony.conf
+sudo chmod 644 chrony.conf
+sudo mv chrony.conf /etc/chrony/chrony.conf
+
+# Gondor time zone
+sudo timedatectl set-timezone America/New_York
+
+# Turn on Chrony NTP
+sudo systemctl start chrony
+sudo systemctl enable chrony
+sudo timedatectl set-ntp on
