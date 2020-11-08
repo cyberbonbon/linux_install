@@ -12,13 +12,11 @@ sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade 
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo DEBIAN_FRONTEND=noninteractive apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools terminator -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools terminator -y
 
 # Configure SSH Server to always run
 sudo systemctl enable ssh.service
 sudo systemctl start ssh
-#sudo update-rc.d -f ssh remove
-#sudo update-rc.d -f ssh defaults
 
 # Reset Host SSH Keys
 sudo rm -rf /etc/ssh/ssh_host_*
@@ -42,11 +40,16 @@ sudo systemctl start xrdp-sesman
 sudo systemctl enable xrdp
 sudo systemctl enable xrdp-sesman
 
-# Copy NTP configuration and set the time zone
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/ntp.conf
-sudo chown root:root ntp.conf
-sudo chmod 644 ntp.conf
-sudo mv ntp.conf /etc/ntp.conf
+# Copy Chrony NTP configuration and set the time zone
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
+sudo chown root:root chrony.conf
+sudo chmod 644 chrony.conf
+sudo mv chrony.conf /etc/chrony/chrony.conf
+
+# Turn on Chrony NTP
+sudo systemctl start chrony
+sudo systemctl enable chrony
+sudo timedatectl set-ntp on
 
 # Gondor time zone
 sudo timedatectl set-timezone America/New_York
