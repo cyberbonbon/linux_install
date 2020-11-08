@@ -39,9 +39,11 @@ sudo mv ntp.conf /etc/ntp.conf
 # Gondor time zone
 sudo timedatectl set-timezone America/New_York
 
-# Configure NFS shares
+# Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/CyberSecurityClubStorage
 sudo mkdir -p /nfs/MinasTirith/CyberSecurityReadOnly
+
+
 sudo echo 'morannon.gondor.middleearth.network:/mnt/user/CyberSecurityClubStorage    /nfs/MinasTirith/CyberSecurityClubStorage   nfs lookupcache=none,bg,lock,proto=tcp   0 0' >> /etc/fstab
 sudo echo 'morannon.gondor.middleearth.network:/mnt/user/CyberSecurityReadOnly    /nfs/MinasTirith/CyberSecurityReadOnly   nfs lookupcache=none,bg,lock,proto=tcp   0 0' >> /etc/fstab
 sudo mount -av
