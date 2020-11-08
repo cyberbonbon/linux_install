@@ -12,7 +12,7 @@ sudo apt-get update && sudo apt-get dist-upgrade -y
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools -y
+sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools -y
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
@@ -32,11 +32,16 @@ sudo chown root:root gondor.snmpd.conf
 sudo chmod 644 gondor.snmpd.conf
 sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
 
-# Copy NTP configuration and set the time zone
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/ntp.conf
-sudo chown root:root ntp.conf
-sudo chmod 644 ntp.conf
-sudo mv ntp.conf /etc/ntp.conf
+# Copy Chrony NTP configuration and set the time zone
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
+sudo chown root:root chrony.conf
+sudo chmod 644 chrony.conf
+sudo mv chrony.conf /etc/chrony/chrony.conf
 
 # Gondor time zone
 sudo timedatectl set-timezone America/New_York
+
+# Turn on Chrony NTP
+sudo systemctl start chrony
+sudo systemctl enable chrony
+sudo timedatectl set-ntp on
