@@ -6,6 +6,9 @@ sudo apt-get remove ntp -y
 sudo apt autoremove -y
 sudo rm /etc/ntp.conf
 
+# Install Chrony NTP
+sudo apt-get install chrony -y
+
 # Copy Chrony NTP configuration and set the time zone
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
 sudo chown root:root chrony.conf
