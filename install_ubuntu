@@ -2,4 +2,6 @@
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
 sudo chown root:root gondor_cache
 sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
-sudo apt-get update
+sudo apt-get update && sudo apt-get dist-upgrade -y
+sudo timedatectl set-ntp off
+sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd ntp open-vm-tools -y
