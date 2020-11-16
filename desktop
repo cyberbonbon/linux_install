@@ -1,11 +1,16 @@
 #!/bin/bash
 
 # Install desktop tools
+sudo DEBIAN_FRONTEND=noninteractive apt-get install xrdp ssh freerdp2-x11 freerdp2-shadow-x11 terminator -y
 
-sudo apt-get install xrdp ssh freerdp2-x11 freerdp2-shadow-x11 terminator -y
+# Start services
 sudo systemctl start xrdp
 sudo systemctl start xrdp-sesman
+sudo systemctl start ssh
+
+sleep 5
+
+# Enable services on boot
 sudo systemctl enable xrdp
 sudo systemctl enable xrdp-sesman
-sudo systemctl start ssh
 sudo systemctl enable ssh.service
