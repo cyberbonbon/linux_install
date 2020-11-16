@@ -43,5 +43,7 @@ sudo timedatectl set-timezone America/New_York
 
 # Turn on Chrony NTP
 sudo systemctl start chrony
+sleep 5
 sudo systemctl enable chrony
+sleep 5
 sudo timedatectl set-ntp on
