@@ -51,7 +51,9 @@ sudo timedatectl set-timezone America/New_York
 
 # Turn on Chrony NTP
 sudo systemctl start chrony
+sleep 5
 sudo systemctl enable chrony
+sleep 5
 sudo timedatectl set-ntp on
 
 # Create Mounts for NFS shares
@@ -62,4 +64,5 @@ sudo mkdir -p /nfs/MinasTirith/CyberSecurityReadOnly
 echo '# NFS Shares' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/CyberSecurityClubStorage    /nfs/MinasTirith/CyberSecurityClubStorage   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/CyberSecurityReadOnly    /nfs/MinasTirith/CyberSecurityReadOnly   nfs lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
+sleep 5
 sudo mount -av
