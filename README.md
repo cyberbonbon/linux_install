@@ -9,6 +9,6 @@ sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/
 
 sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/install_kali | bash
 
-For desktops, run this additional script for RDP and SSH functionality:
+For Ubuntu desktops, run this additional script for RDP and SSH functionality:
 
 sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/desktop | bash
