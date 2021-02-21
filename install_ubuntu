@@ -12,7 +12,7 @@ sudo apt-get update && sudo apt-get dist-upgrade -y
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools -y
+sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr -y
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
