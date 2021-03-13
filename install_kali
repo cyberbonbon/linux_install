@@ -12,7 +12,7 @@ sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade 
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo DEBIAN_FRONTEND=noninteractive apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools terminator mtr -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install ssh xrdp smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools terminator mtr net-tools -y
 
 # Configure SSH Server to always run
 sudo systemctl enable ssh.service
