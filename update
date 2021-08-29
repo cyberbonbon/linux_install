@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Remove existing authorized keys and replace with updated file
+rm .ssh/authorized_keys
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/authorized_keys
+sudo chown cyberbonbon:cyberbonbon authorized_keys
+mv authorized_keys .ssh/authorized_keys
+cat .ssh/authorized_keys
+
+sudo service ssh restart
+
+# Remove existing chrony configuration file and replace with the updated file
+sudo rm /etc/chrony/chrony.conf
+
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
+sudo chown root:root chrony.conf
+sudo chmod 644 chrony.conf
+sudo mv chrony.conf /etc/chrony/chrony.conf
+
+sudo service chrony restart
