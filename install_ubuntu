@@ -39,10 +39,10 @@ sudo mv sshd_config /etc/ssh/sshd_config
 
 # Copy the approved list of authorized SSH keys, create the .ssh user directory and move the file to it
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/authorized_keys
-sudo mkdir /user/cyberbonbon/.ssh
-sudo chown cyberbonbon:cyberbonbon /user/cyberbonbon/.ssh
+sudo mkdir /home/cyberbonbon/.ssh
+sudo chown cyberbonbon:cyberbonbon /home/cyberbonbon/.ssh
 sudo chown cyberbonbon:cyberbonbon authorized_keys
-sudo mv authorized_keys /user/cyberbonbon.ssh/authorized_keys
+sudo mv authorized_keys /home/cyberbonbon.ssh/authorized_keys
 
 # Copy SNMP configuration template
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
