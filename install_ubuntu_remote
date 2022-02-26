@@ -61,5 +61,10 @@ sudo chown -R cyberbonbon:cyberbonbon /etc/wireguard
 # Add private key to wg01 configuration
 sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01.conf)" > /etc/wireguard/wg01.conf
 
+# Configure Wireguard to start on boot as a service and configure domains
+sudo echo DNS=172.16.254.1 >> /etc/systemd/resolved.conf
+sudo echo Domains=~*.middleearth.network >> /etc/systemd/resolved.conf
+sudo systemctl enable wg-quick@wg01.service
+
 #
 # End of script
