@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = 
+Address = 172.16.255.x/32
+DNS = 172.16.255.1
+
+[Peer]
+PublicKey = SA/ohIhOAL+1gCfsdnofhTXH2S1qWgc0Dd+7SFNWez4=
+Endpoint = cyberbonbon.ddns.net:51820
+AllowedIPs = 192.168.0.0/16,172.16.0.0/12,10.0.0.0/8
