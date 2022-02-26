@@ -64,3 +64,6 @@ sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.k
 # Advertise public key
 
 sudo echo -e "\n\n\n\nPublic key to add to server:\n\n$(cat /etc/wireguard/clients/$HOSTNAME.key.pub)\n\nEdit the IP address for this host in /etc/wireguard/wg01.conf\n\nThen run:\n\nsudo wg-quick up wg01\n\n\n"
+
+#
+# End of script
