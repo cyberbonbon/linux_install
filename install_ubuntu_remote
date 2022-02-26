@@ -54,7 +54,7 @@ sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
 # Wireguard Key Generation and template download
 sudo mkdir -p /etc/wireguard/clients
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01.conf
-sudo mv wg01 /etc/wireguard/wg01.conf
+sudo mv wg01.conf /etc/wireguard/wg01.conf
 sudo wg genkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key | wg pubkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key.pub
 sudo chown -R cyberbonbon:cyberbonbon /etc/wireguard
 
