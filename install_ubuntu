@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user with sudo permissions
-adduser cyberbonbon
+adduser cyberbonbon -q
 test123
 test123
-Shawn
-0
-0
-0
-0
-y
+#Shawn
+#0
+#0
+#0
+#0
+#y
 
 usermod -aG sudo cyberbonbon
 
