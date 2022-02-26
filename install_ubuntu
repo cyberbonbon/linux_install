@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user
-useradd -m cyberbonbon
-passwd cyberbonbon
+adduser cyberbonbon
 test123
 test123
+Shawn
+0
+0
+0
+0
+y
 
 usermod -aG sudo cyberbonbon
 
