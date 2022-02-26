@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Add CyberBoNBoN user
+# Add CyberBoNBoN user with sudo permissions
 adduser cyberbonbon
 test123
 test123
@@ -10,9 +10,7 @@ Shawn
 0
 0
 y
-
 usermod -aG sudo cyberbonbon
-
 
 # Copy the Apt-cacher-NG proxy configuration
 #wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
@@ -36,9 +34,10 @@ sudo mv sshd_config /etc/ssh/sshd_config
 
 # Copy the approved list of authorized SSH keys, create the .ssh user directory and move the file to it
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/authorized_keys
-mkdir .ssh
+mkdir /user/cyberbonbon/.ssh
+sudo chown cyberbonbon:cyberbonbon /user/cyberbonbon/.ssh
 sudo chown cyberbonbon:cyberbonbon authorized_keys
-mv authorized_keys .ssh/authorized_keys
+mv authorized_keys /user/cyberbonbon.ssh/authorized_keys
 
 # Copy SNMP configuration template
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
@@ -56,8 +55,15 @@ sudo mv chrony.conf /etc/chrony/chrony.conf
 sudo timedatectl set-timezone America/New_York
 
 # Turn on Chrony NTP
-sudo systemctl start chrony
-sleep 5
-sudo systemctl enable chrony
+sudo systemctl enable --now chrony
 sleep 5
 sudo timedatectl set-ntp on
+
+# After update for remote: Copy the Apt-cacher-NG proxy configuration
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
+sudo chown root:root gondor_cache
+sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
+
+# Wait a period and reboot
+sleep 30
+reboot
