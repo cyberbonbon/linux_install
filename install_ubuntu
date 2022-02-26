@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user with sudo permissions
-adduser --disabled-password --gecos "" cyberbonbon
+adduser cyberbonbon --disabled-password --gecos ""
+
+#adduser cyberbonbon --gecos "" --disabled-password
+#echo "myuser:password" | sudo chpasswd
+
 #test123
 #test123
 #Shawn
