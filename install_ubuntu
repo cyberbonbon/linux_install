@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Copy the Apt-cacher-NG proxy configuration
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
-sudo chown root:root gondor_cache
-sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
+#wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
+#sudo chown root:root gondor_cache
+#sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
 
 # Perform a system update
 sudo apt-get update && sudo apt-get dist-upgrade -y
