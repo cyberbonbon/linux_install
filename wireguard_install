@@ -1,18 +1,13 @@
 #!/bin/bash
 
-# Wireguard Key Generation
-
+# Wireguard Key Generation and template download
 sudo mkdir -p /etc/wireguard/clients
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01.conf
+sudo mv wg01.conf /etc/wireguard/wg01.conf
 sudo wg genkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key | wg pubkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key.pub
-sudo chown -R cyberbonbon:cyberbonbon /etc/wireguard
 
-# Download template client configuration file and customize
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01
-sudo chown cyberbonbon:cyberbonbon wg01
-sudo mv wg01 /etc/wireguard/wg01
-sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01)" > /etc/wireguard/wg01
-
-# Advertise public key
+# Add private key to wg01 configuration
+sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01.conf)" > /etc/wireguard/wg01.conf
 
 # Advertise public key
 
