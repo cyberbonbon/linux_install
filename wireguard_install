@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Wireguard Key Generation
+
+sudo mkdir -p /etc/wireguard/clients
+sudo wg genkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key | wg pubkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key.pub
+sudo chown -R cyberbonbon:cyberbonbon /etc/wireguard
+
+# Download template client configuration file and customize
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01
+sudo chown cyberbonbon:cyberbonbon wg01
+sudo mv wg01 /etc/wireguard/wg01
+sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01)" > /etc/wireguard/wg01
+
+# Advertise public key
+
+sudo echo -e "\n\n\n\nPublic key to add to server:\n\n$(cat /etc/wireguard/clients/$HOSTNAME.key.pub)\n\nEdit the IP address for this host in /etc/wireguard/wg01\n\n\n"
