@@ -10,6 +10,7 @@ Shawn
 0
 0
 y
+
 usermod -aG sudo cyberbonbon
 
 # Copy the Apt-cacher-NG proxy configuration
