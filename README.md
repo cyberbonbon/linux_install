@@ -14,10 +14,10 @@ sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/
 # Local Kali devices
 sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/install_kali | bash
 
-For Ubuntu desktops, run this additional script for RDP and SSH functionality:
+# For Ubuntu desktops, run this additional script for RDP and SSH functionality:
 
 sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/desktop | bash
 
-Update Script for SSH access and NTP
+# Update Script for SSH access and NTP
 
 sudo wget -O - https://raw.githubusercontent.com/cyberbonbon/linux_install/main/update | bash
