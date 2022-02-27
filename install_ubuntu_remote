@@ -65,5 +65,12 @@ systemctl enable wg-quick@wg01.service
 wget -O /etc/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf
 echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sudo service systemd-resolved restart" | sudo crontab -u root -
 
+# Create Mounts for NFS shares
+sudo mkdir -p /nfs/MinasTirith/
+
+# Append NFS mounts to fstab file
+echo '# NFS Shares' | sudo tee -a /etc/fstab
+echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
+
 #
 # End of script
