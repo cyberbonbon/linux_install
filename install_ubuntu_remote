@@ -1,67 +1,70 @@
 #!/bin/bash
 
+# Hardcode hostname in /etc/hosts
+echo -e "127.0.0.1 $HOSTNAME\n$(cat /etc/hosts)" > /etc/hosts
+
 # Add CyberBoNBoN user with sudo permissions
 adduser cyberbonbon --disabled-password --gecos ""
 usermod -aG sudo cyberbonbon
 
 # Perform a system update
-sudo apt-get update && sudo apt-get dist-upgrade -y
+apt-get update && sudo apt-get dist-upgrade -y
 
 # Disable NTP while configuring new settings
-sudo timedatectl set-ntp off
+timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install wireguard smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
+apt-get install wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
-sudo chown root:root sshd_config
-sudo chmod 644 sshd_config
-sudo mv sshd_config /etc/ssh/sshd_config
+chown root:root sshd_config
+chmod 644 sshd_config
+mv sshd_config /etc/ssh/sshd_config
 
 # Copy the approved list of authorized SSH keys, create the .ssh user directory and move the file to it
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/authorized_keys
-sudo mkdir /home/cyberbonbon/.ssh
-sudo chown cyberbonbon:cyberbonbon /home/cyberbonbon/.ssh
-sudo chown cyberbonbon:cyberbonbon authorized_keys
-sudo mv authorized_keys /home/cyberbonbon/.ssh/authorized_keys
+mkdir /home/cyberbonbon/.ssh
+chown cyberbonbon:cyberbonbon /home/cyberbonbon/.ssh
+chown cyberbonbon:cyberbonbon authorized_keys
+mv authorized_keys /home/cyberbonbon/.ssh/authorized_keys
 
 # Copy SNMP configuration template
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
-sudo chown root:root gondor.snmpd.conf
-sudo chmod 644 gondor.snmpd.conf
-sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
+chown root:root gondor.snmpd.conf
+chmod 644 gondor.snmpd.conf
+mv gondor.snmpd.conf /etc/snmp/snmpd.conf
 
 # Copy Chrony NTP configuration and set the time zone
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
-sudo chown root:root chrony.conf
-sudo chmod 644 chrony.conf
-sudo mv chrony.conf /etc/chrony/chrony.conf
+chown root:root chrony.conf
+chmod 644 chrony.conf
+mv chrony.conf /etc/chrony/chrony.conf
 
 # Gondor time zone
-sudo timedatectl set-timezone America/New_York
+timedatectl set-timezone America/New_York
 
 # Turn on Chrony NTP
-sudo systemctl enable --now chrony
+systemctl enable --now chrony
 sleep 5
-sudo timedatectl set-ntp on
+timedatectl set-ntp on
 
 # After update for remote: Copy the Apt-cacher-NG proxy configuration
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
-sudo chown root:root gondor_cache
-sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
+chown root:root gondor_cache
+mv gondor_cache /etc/apt/apt.conf.d/01proxy
 
 # Wireguard Key Generation and template download
-sudo mkdir -p /etc/wireguard/clients
+mkdir -p /etc/wireguard/clients
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01.conf
-sudo mv wg01.conf /etc/wireguard/wg01.conf
-sudo wg genkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key | wg pubkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key.pub
+mv wg01.conf /etc/wireguard/wg01.conf
+wg genkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key | wg pubkey | sudo tee /etc/wireguard/clients/$HOSTNAME.key.pub
 
 # Add private key to wg01 configuration
-sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01.conf)" > /etc/wireguard/wg01.conf
+echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n$(cat /etc/wireguard/wg01.conf)" > /etc/wireguard/wg01.conf
 
 # Configure Wireguard to start on boot
-sudo systemctl enable wg-quick@wg01.service
+systemctl enable wg-quick@wg01.service
 
 # Configure DNS
 echo -e "$(sudo crontab -u root -l)\n@reboot wget -O /run/systemd/resolved.conf.d/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
