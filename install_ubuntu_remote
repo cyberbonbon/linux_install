@@ -49,11 +49,6 @@ systemctl enable --now chrony
 sleep 5
 timedatectl set-ntp on
 
-# After update for remote: Copy the Apt-cacher-NG proxy configuration
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
-chown root:root gondor_cache
-mv gondor_cache /etc/apt/apt.conf.d/01proxy
-
 # Wireguard Key Generation and template download
 mkdir -p /etc/wireguard/clients
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/wg01.conf
