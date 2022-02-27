@@ -11,14 +11,13 @@ sudo apt-get update && sudo apt-get -o Dpkg::Options::="--force-confold" dist-up
 timedatectl set-ntp off
 
 # Install default tools
-apt-get install wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
+sudo apt-get install wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
 
 # Hardcode hostname in /etc/hosts
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
-chown root:root sshd_config
 chmod 644 sshd_config
 mv sshd_config /etc/ssh/sshd_config
 
@@ -31,13 +30,11 @@ mv authorized_keys /home/cyberbonbon/.ssh/authorized_keys
 
 # Copy SNMP configuration template
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
-chown root:root gondor.snmpd.conf
 chmod 644 gondor.snmpd.conf
 mv gondor.snmpd.conf /etc/snmp/snmpd.conf
 
 # Copy Chrony NTP configuration and set the time zone
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
-chown root:root chrony.conf
 chmod 644 chrony.conf
 mv chrony.conf /etc/chrony/chrony.conf
 
@@ -62,7 +59,8 @@ echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n
 systemctl enable wg-quick@wg01.service
 
 # Configure DNS
-echo -e "$(sudo crontab -u root -l)\n@reboot wget -O /run/systemd/resolved.conf.d/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
+wget -O /etc/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf
+echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
 
 #
 # End of script
