@@ -63,5 +63,8 @@ sudo echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.k
 # Configure Wireguard to start on boot
 sudo systemctl enable wg-quick@wg01.service
 
+# Configure DNS
+echo -e "$(sudo crontab -u root -l)\n@reboot wget -O /run/systemd/resolved.conf.d/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
+
 #
 # End of script
