@@ -11,7 +11,7 @@ sudo apt-get update && sudo apt-get -o Dpkg::Options::="--force-confold" dist-up
 timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
+sudo apt-get install -o Dpkg::Options::="--force-confold" wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
 
 # Hardcode hostname in /etc/hosts
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
