@@ -72,5 +72,10 @@ sudo mkdir -p /nfs/MinasTirith/
 echo '# NFS Shares' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
+# Configuration for delayed NFS mount
+wget -O /usr/bin/nfs_delayed_mount.sh https://raw.githubusercontent.com/cyberbonbon/linux_install/main/nfs_delayed_mount.sh
+wget -O /etc/rc.local https://raw.githubusercontent.com/cyberbonbon/linux_install/main/rc.local_delayed_NFS
+chmod +x /usr/bin/nfs_delayed_mount.sh
+
 #
 # End of script
