@@ -12,6 +12,7 @@
 # By default this script does nothing.
 
 # Run mounting script once VPN is up
+
 /usr/bin/nfs_delayed_mount.sh &
 
 exit 0
