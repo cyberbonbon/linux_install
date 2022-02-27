@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Hardcode hostname in /etc/hosts
-echo -e "127.0.0.1 $HOSTNAME\n$(cat /etc/hosts)" > /etc/hosts
-
 # Add CyberBoNBoN user with sudo permissions
 adduser cyberbonbon --disabled-password --gecos ""
 usermod -aG sudo cyberbonbon
@@ -63,6 +60,9 @@ systemctl enable wg-quick@wg01.service
 
 # Configure DNS
 echo -e "$(sudo crontab -u root -l)\n@reboot wget -O /run/systemd/resolved.conf.d/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
+
+# Hardcode hostname in /etc/hosts
+echo -e "127.0.0.1 $HOSTNAME\n$(cat /etc/hosts)" > /etc/hosts
 
 #
 # End of script
