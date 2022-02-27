@@ -5,13 +5,16 @@ adduser cyberbonbon --disabled-password --gecos ""
 usermod -aG sudo cyberbonbon
 
 # Perform a system update
-apt-get update && sudo apt-get dist-upgrade -y
+sudo apt-get update && sudo apt-get -o Dpkg::Options::="--force-confold" dist-upgrade -y
 
 # Disable NTP while configuring new settings
 timedatectl set-ntp off
 
 # Install default tools
 apt-get install wireguard wireguard-tools smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony open-vm-tools mtr net-tools -y
+
+# Hardcode hostname in /etc/hosts
+echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
@@ -60,9 +63,6 @@ systemctl enable wg-quick@wg01.service
 
 # Configure DNS
 echo -e "$(sudo crontab -u root -l)\n@reboot wget -O /run/systemd/resolved.conf.d/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf\n@reboot sleep 10 service systemd-resolved restart" | sudo crontab -u root -
-
-# Hardcode hostname in /etc/hosts
-echo -e "127.0.0.1 $HOSTNAME\n$(cat /etc/hosts)" > /etc/hosts
 
 #
 # End of script
