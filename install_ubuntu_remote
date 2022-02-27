@@ -61,9 +61,9 @@ echo -e "[Interface]\nPrivateKey = $(cat /etc/wireguard/clients/$HOSTNAME.key)\n
 # Configure Wireguard to start on boot
 systemctl enable wg-quick@wg01.service
 
-# Configure DNS
+# Configure DNS and Crontab entries 
 wget -O /etc/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf
-echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sudo service systemd-resolved restart" | sudo crontab -u root -
+echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sudo service systemd-resolved restart\n@reboot sleep 30 && sudo mount -av" | sudo crontab -u root -
 
 # Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/
@@ -73,9 +73,9 @@ echo '# NFS Shares' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
 # Configuration for delayed NFS mount
-wget -O /usr/bin/nfs_delayed_mount.sh https://raw.githubusercontent.com/cyberbonbon/linux_install/main/nfs_delayed_mount.sh
-wget -O /etc/rc.local https://raw.githubusercontent.com/cyberbonbon/linux_install/main/rc.local_delayed_NFS
-chmod +x /usr/bin/nfs_delayed_mount.sh
+#wget -O /usr/bin/nfs_delayed_mount.sh https://raw.githubusercontent.com/cyberbonbon/linux_install/main/nfs_delayed_mount.sh
+#wget -O /etc/rc.local https://raw.githubusercontent.com/cyberbonbon/linux_install/main/rc.local_delayed_NFS
+#chmod +x /usr/bin/nfs_delayed_mount.sh
 
 #
 # End of script
