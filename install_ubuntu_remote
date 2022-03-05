@@ -63,7 +63,7 @@ systemctl enable wg-quick@wg01.service
 
 # Configure DNS and Crontab entries 
 wget -O /etc/dns-wg01.conf https://raw.githubusercontent.com/cyberbonbon/linux_install/main/dns-wg01.conf
-echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sleep 10 && sudo service systemd-resolved restart\n@reboot sleep 15 && sudo mount -av\n@reboot sleep 20 && sudo systemctl start nginx\n@reboot sleep 15 && sudo service snmpd restart" | sudo crontab -u root -
+echo -e "$(sudo crontab -u root -l)\n@reboot cp /etc/dns-wg01.conf /run/systemd/resolved.conf.d/dns-wg01.conf\n@reboot sudo wg-quick up wg01\n@reboot sleep 10 && sudo service systemd-resolved restart\n@reboot sleep 15 && sudo mount -av\n@reboot sleep 20 && sudo systemctl start nginx\n@reboot sleep 15 && sudo service snmpd restart" | sudo crontab -u root -
 
 # Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/
