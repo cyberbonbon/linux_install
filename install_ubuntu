@@ -54,11 +54,12 @@ sudo timedatectl set-ntp on
 
 # Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/
+sudo mkdir -p /nfs/Ecthelion/
 
 # Append NFS mounts to fstab file
-echo '# NFS Shares' | sudo tee -a /etc/fstab
+echo '# NFS Access Shares' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
-
+echo 'ecthelion.gondor.middleearth.network:/srv/nfs4/certs/'$HOSTNAME'    /nfs/Ecthelion/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
 # Wait a period and reboot
 sleep 30
