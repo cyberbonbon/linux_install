@@ -61,6 +61,14 @@ echo '# NFS Access Shares' | sudo tee -a /etc/fstab
 echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 echo 'ecthelion.gondor.middleearth.network:/srv/nfs4/certs/'$HOSTNAME'    /nfs/Ecthelion/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
+# Copy cert script and enable chron job
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/cert.sh
+sudo chown root:root cert.sh
+sudo chmod 755 cert.sh
+sudo mv cert.sh /usr/bin/cert.sh
+echo -e "$(sudo crontab -u root -l)\n0 5 * * 1 /usr/bin/cert.sh && systemctl restart nginx" | sudo crontab -u root -
+
+
 # Wait a period and reboot
 sleep 30
 reboot
