@@ -67,7 +67,7 @@ sudo chown root:root cert.sh
 sudo chmod 755 cert.sh
 sudo mv cert.sh /usr/bin/cert.sh
 echo -e "$(sudo crontab -u root -l)\n0 5 * * 1 /usr/bin/cert.sh && systemctl restart nginx" | sudo crontab -u root -
-
+sudo /usr/bin/cert.sh
 
 # Wait a period and reboot
 sleep 30
