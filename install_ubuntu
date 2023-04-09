@@ -6,9 +6,9 @@ adduser cyberbonbon --disabled-password --gecos ""
 usermod -aG sudo cyberbonbon
 
 # Copy the Apt-cacher-NG proxy configuration
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
-sudo chown root:root gondor_cache
-sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
+#wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
+#sudo chown root:root gondor_cache
+#sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
 
 # Perform a system update
 sudo apt-get update && sudo apt-get dist-upgrade -y
@@ -39,10 +39,10 @@ sudo chmod 644 gondor.snmpd.conf
 sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
 
 # Copy Chrony NTP configuration and set the time zone
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
-sudo chown root:root chrony.conf
-sudo chmod 644 chrony.conf
-sudo mv chrony.conf /etc/chrony/chrony.conf
+#wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
+#sudo chown root:root chrony.conf
+#sudo chmod 644 chrony.conf
+#sudo mv chrony.conf /etc/chrony/chrony.conf
 
 # Gondor time zone
 sudo timedatectl set-timezone America/New_York
