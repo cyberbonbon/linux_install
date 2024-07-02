@@ -45,7 +45,7 @@ sudo chmod 644 chrony.conf
 sudo mv chrony.conf /etc/chrony/chrony.conf
 
 # Gondor time zone
-sudo timedatectl set-timezone America/New_York
+sudo timedatectl set-timezone America/Chicago
 
 # Turn on Chrony NTP
 sudo systemctl enable --now chrony
