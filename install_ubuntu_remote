@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user with sudo permissions
-adduser cyberbonbon --disabled-password --gecos ""
-usermod -aG sudo cyberbonbon
+#adduser cyberbonbon --disabled-password --gecos ""
+#usermod -aG sudo cyberbonbon
 
 # Pause for auto updates
 sleep 60
