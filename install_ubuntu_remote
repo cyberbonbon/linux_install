@@ -5,10 +5,10 @@
 #usermod -aG sudo cyberbonbon
 
 # Pause for auto updates
-sleep 60
+#sleep 60
 
 # Perform a system update
-sudo apt-get update && sudo apt-get -o Dpkg::Options::="--force-confold" dist-upgrade -y
+#sudo apt-get update && sudo apt-get -o Dpkg::Options::="--force-confold" dist-upgrade -y
 
 # Disable NTP while configuring new settings
 timedatectl set-ntp off
