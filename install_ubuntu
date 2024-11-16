@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user with sudo permissions
+sudo su -
 adduser cyberbonbon --disabled-password --gecos ""
 
 usermod -aG sudo cyberbonbon
+exit
 
 # Copy the Apt-cacher-NG proxy configuration
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
