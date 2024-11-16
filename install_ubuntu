@@ -2,7 +2,8 @@
 
 # Add CyberBoNBoN user with sudo permissions
 sudo su -
-adduser cyberbonbon --disabled-password --gecos ""
+#adduser cyberbonbon --disabled-password --gecos ""
+adduser cyberbonbon -p test123 --gecos ""
 
 usermod -aG sudo cyberbonbon
 exit
