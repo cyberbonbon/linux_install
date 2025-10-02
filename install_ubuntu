@@ -71,8 +71,8 @@ sudo mkdir -p /nfs/Ecthelion/
 
 # Append NFS mounts to fstab file
 echo '# NFS Access Shares' | sudo tee -a /etc/fstab
-echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
-echo 'ecthelion.gondor.middleearth.network:/srv/nfs4/certs/'$HOSTNAME'    /nfs/Ecthelion/   nfs hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
+echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs vers=4.1,hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
+echo 'ecthelion.gondor.middleearth.network:/srv/nfs4/certs/'$HOSTNAME'    /nfs/Ecthelion/   nfs vers=4.1,hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
 # Copy cert script and enable chron job
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/cert.sh
