@@ -44,6 +44,13 @@ sudo chown root:root gondor.snmpd.conf
 sudo chmod 644 gondor.snmpd.conf
 sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
 
+# Copy SNMP override
+sudo mkdir -p /etc/systemd/system/snmpd.service.d
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/override.conf
+sudo chown root:root override.conf
+sudo chmod 644 override.conf
+sudo mv override.conf //etc/systemd/system/snmpd.service.d/override.conf
+
 # Copy Chrony NTP configuration and set the time zone
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/chrony.conf
 sudo chown root:root chrony.conf
