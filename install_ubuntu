@@ -42,7 +42,7 @@ sudo mv authorized_keys /home/cyberbonbon/.ssh/authorized_keys
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor.snmpd.conf
 sudo chown root:root gondor.snmpd.conf
 sudo chmod 644 gondor.snmpd.conf
-sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf
+sudo mv gondor.snmpd.conf /etc/snmp/snmpd.conf.d/gondor.snmpd.conf
 
 # Copy SNMP override
 sudo mkdir -p /etc/systemd/system/snmpd.service.d
