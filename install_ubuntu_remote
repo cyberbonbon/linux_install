@@ -69,7 +69,7 @@ sudo mkdir -p /nfs/MinasTirith/
 
 # Append NFS mounts to fstab file
 echo '# NFS Shares' | sudo tee -a /etc/fstab
-echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs soft,timeo=600,lookupcache=none,bg,lock,proto=tcp   0 0' | sudo tee -a /etc/fstab
+echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
 
 #
 # End of script
