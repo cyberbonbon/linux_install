@@ -1,16 +1,42 @@
 #!/bin/bash
 
 # Install desktop tools
-sudo DEBIAN_FRONTEND=noninteractive apt-get install xrdp ssh freerdp2-x11 freerdp2-shadow-x11 terminator -y
+set -e
 
-# Start services
-sudo systemctl start xrdp
-sudo systemctl start xrdp-sesman
-sudo systemctl start ssh
+# 1️⃣ Update and install packages
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt install -y \
+    xfce4 xfce4-goodies \
+    lightdm \
+    xrdp \
+    remmina \
+    openssh-server \
+    policykit-1-gnome gvfs-backends
 
-sleep 5
+# 2️⃣ Ensure LightDM is default display manager
+sudo systemctl disable gdm3
+sudo systemctl enable lightdm
 
-# Enable services on boot
-sudo systemctl enable xrdp
-sudo systemctl enable xrdp-sesman
-sudo systemctl enable ssh.service
+# 3️⃣ Configure xrdp to use XFCE
+echo "startxfce4" > ~/.xsession
+chmod +x ~/.xsession
+
+sudo cp /etc/xrdp/startwm.sh /etc/xrdp/startwm.sh.orig
+sudo bash -c 'cat > /etc/xrdp/startwm.sh <<EOF
+#!/bin/sh
+exec startxfce4
+EOF'
+sudo chmod +x /etc/xrdp/startwm.sh
+
+# 4️⃣ Add xrdp to ssl-cert group
+sudo adduser xrdp ssl-cert
+
+# 5️⃣ Enable & start xrdp and ssh services
+sudo systemctl enable --now xrdp
+sudo systemctl enable --now ssh
+
+echo "✅ Setup complete!"
+echo "RDP: Windows -> Ubuntu (port 3389)"
+echo "SSH: Windows/Linux -> Ubuntu (port 22)"
+echo "Desktop: XFCE (lightweight, stable for RDP)"
+echo "Remmina installed for outgoing RDP connections"
