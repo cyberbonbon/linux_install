@@ -11,8 +11,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
     xrdp \
     remmina \
     openssh-server \
-    policykit-1-gnome gvfs-backends \
-    cifs-utils
+    policykit-1-gnome gvfs-backends
 
 # 2️⃣ Ensure LightDM is default display manager
 sudo systemctl disable gdm3
