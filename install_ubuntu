@@ -23,7 +23,7 @@ sudo apt-get update && sudo apt-get dist-upgrade -y
 sudo timedatectl set-ntp off
 
 # Install default tools
-sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony qemu-guest-agent mtr net-tools -y
+sudo apt-get install smartmontools nfs-common apt-transport-https ca-certificates gnupg-agent software-properties-common snmpd chrony qemu-guest-agent mtr net-tools autofs -y
 
 # Copy the default sshd configuration file
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/sshd_config
@@ -69,10 +69,17 @@ sudo timedatectl set-ntp on
 sudo mkdir -p /nfs/MinasTirith/
 sudo mkdir -p /nfs/Ecthelion/
 
-# Append NFS mounts to fstab file
-echo '# NFS Access Shares' | sudo tee -a /etc/fstab
-echo 'minastirith.gondor.middleearth.network:/mnt/user/Backups    /nfs/MinasTirith/   nfs hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
-echo 'ecthelion.gondor.middleearth.network:/certs/'$HOSTNAME'    /nfs/Ecthelion/   nfs hard,intr,timeo=600,lookupcache=none,bg,proto=tcp   0 0' | sudo tee -a /etc/fstab
+# Configure auto.master
+echo `/nfs /etc/auto.nfs --timeout=30` | sudo tee -a /etc/auto.master
+
+# Create auto.nfs file
+echo '# NFS Access Shares' | sudo tee -a /etc/auto.nfs
+echo `MinasTirith  -rw,soft,timeo=10,retrans=3,nofail  minastirith.gondor.middleearth.network:/mnt/user/Backups` | sudo tee -a /etc/auto.nfs
+echo `Ecthelion    -rw,soft,timeo=10,retrans=3,nofail  ecthelion.gondor.middleearth.network:/certs/$HOSTNAME.gondor.middleearth.network` | sudo tee -a /etc/auto.nfs
+
+# Restart and enable autofs
+sudo systemctl restart autofs
+sudo systemctl enable autofs
 
 # Copy cert script and enable chron job
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/cert.sh
