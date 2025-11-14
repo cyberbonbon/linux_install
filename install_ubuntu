@@ -70,12 +70,12 @@ sudo mkdir -p /nfs/MinasTirith/
 sudo mkdir -p /nfs/Ecthelion/
 
 # Configure auto.master
-echo `/nfs /etc/auto.nfs --timeout=30` | sudo tee -a /etc/auto.master
+echo "/nfs /etc/auto.nfs --timeout=30" | sudo tee -a /etc/auto.master
 
 # Create auto.nfs file
-echo '# NFS Access Shares' | sudo tee -a /etc/auto.nfs
-echo `MinasTirith  -rw,soft,timeo=10,retrans=3,nofail  minastirith.gondor.middleearth.network:/mnt/user/Backups` | sudo tee -a /etc/auto.nfs
-echo `Ecthelion    -rw,soft,timeo=10,retrans=3,nofail  ecthelion.gondor.middleearth.network:/certs/$HOSTNAME.gondor.middleearth.network` | sudo tee -a /etc/auto.nfs
+echo "# NFS Access Shares" | sudo tee -a /etc/auto.nfs
+echo "MinasTirith  -rw,soft,timeo=10,retrans=3,nofail  minastirith.gondor.middleearth.network:/mnt/user/Backups" | sudo tee -a /etc/auto.nfs
+echo "Ecthelion    -rw,soft,timeo=10,retrans=3,nofail  ecthelion.gondor.middleearth.network:/certs/$HOSTNAME.gondor.middleearth.network" | sudo tee -a /etc/auto.nfs
 
 # Restart and enable autofs
 sudo systemctl restart autofs
