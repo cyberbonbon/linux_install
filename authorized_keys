@@ -3,7 +3,3 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK+vuld2UZCO07iSRfjB4WAlEHiF+Igloi3d24WUMude
 
 #Sting
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQzEoutyWp3TGTkFHW8LNTQ1+LyrCqAJVmDnybhZx6+ cyberbonbon@middleearth.network
-
-#Ansible
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHW6RhlFN5IEhLkbV8aPfH3OXxyKKb5al0OP8csA/aDq ansible@gandalf
-
