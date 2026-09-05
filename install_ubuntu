@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Add CyberBoNBoN user with sudo permissions
-sudo su -
-#adduser cyberbonbon --disabled-password --gecos ""
-adduser cyberbonbon --gecos ""
-test123
-test123
+#sudo su -
+##adduser cyberbonbon --disabled-password --gecos ""
+#adduser cyberbonbon --gecos ""
+#test123
+#test123
 
 
-usermod -aG sudo cyberbonbon
-exit
+#usermod -aG sudo cyberbonbon
+#exit
 
 # Copy the Apt-cacher-NG proxy configuration
 wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cache
@@ -67,7 +67,7 @@ sudo timedatectl set-ntp on
 
 # Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/
-sudo mkdir -p /nfs/Ecthelion/
+#sudo mkdir -p /nfs/Ecthelion/
 
 # Configure auto.master
 echo "/nfs /etc/auto.nfs --timeout=30" | sudo tee -a /etc/auto.master
@@ -75,19 +75,19 @@ echo "/nfs /etc/auto.nfs --timeout=30" | sudo tee -a /etc/auto.master
 # Create auto.nfs file
 echo "# NFS Access Shares" | sudo tee -a /etc/auto.nfs
 echo "MinasTirith  -rw,soft,timeo=10,retrans=3,nofail  minastirith.gondor.middleearth.network:/mnt/user/Backups" | sudo tee -a /etc/auto.nfs
-echo "Ecthelion    -rw,soft,timeo=10,retrans=3,nofail  ecthelion.gondor.middleearth.network:/certs/$HOSTNAME.gondor.middleearth.network" | sudo tee -a /etc/auto.nfs
+#echo "Ecthelion    -rw,soft,timeo=10,retrans=3,nofail  ecthelion.gondor.middleearth.network:/certs/$HOSTNAME.gondor.middleearth.network" | sudo tee -a /etc/auto.nfs
 
 # Restart and enable autofs
 sudo systemctl restart autofs
 sudo systemctl enable autofs
 
 # Copy cert script and enable chron job
-wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/cert.sh
-sudo chown root:root cert.sh
-sudo chmod 755 cert.sh
-sudo mv cert.sh /usr/bin/cert.sh
-echo -e "$(sudo crontab -u root -l)\n0 5 * * 1 /usr/bin/cert.sh && systemctl restart nginx" | sudo crontab -u root -
-sudo /usr/bin/cert.sh
+#wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/cert.sh
+#sudo chown root:root cert.sh
+#sudo chmod 755 cert.sh
+#sudo mv cert.sh /usr/bin/cert.sh
+#echo -e "$(sudo crontab -u root -l)\n0 5 * * 1 /usr/bin/cert.sh && systemctl restart nginx" | sudo crontab -u root -
+#sudo /usr/bin/cert.sh
 
 # Wait a period and reboot
 sleep 30
