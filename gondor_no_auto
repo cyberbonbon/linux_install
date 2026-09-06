@@ -1,0 +1,6 @@
+  // Managed by post-install script (mirrors no_auto.yml).
+  // Automatic upgrades disabled - wave_upgrade.yml is the only patcher.
+  APT::Periodic::Update-Package-Lists "0";
+  APT::Periodic::Download-Upgradeable-Packages "0";
+  APT::Periodic::Unattended-Upgrade "0";
+  APT::Periodic::AutocleanInterval "0";
