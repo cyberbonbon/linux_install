@@ -1,0 +1,5 @@
+// Managed by post-install script.
+  // apt's default Acquire::Retries is 0 - one blip from a cold
+  // apt-cacher-ng is otherwise a hard failure mid-wave.
+  Acquire::http::Timeout "120";
+  Acquire::Retries "3";
