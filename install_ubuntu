@@ -16,8 +16,26 @@ wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_cac
 sudo chown root:root gondor_cache
 sudo mv gondor_cache /etc/apt/apt.conf.d/01proxy
 
+# Disable unattended-upgrades so wave_upgrade.yml is the only patcher.
+# Stop first - on a fresh boot u-u is often mid-download holding the dpkg lock.
+
+sudo systemctl stop unattended-upgrades.service apt-daily.service apt-daily-upgrade.service 2>/dev/null
+sudo systemctl disable --now apt-daily.timer apt-daily-upgrade.timer unattended-upgrades.service 2>/dev/null
+sudo systemctl mask apt-daily.timer apt-daily-upgrade.timer unattended-upgrades.service 2>/dev/null
+
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_no_auto
+sudo chown root:root gondor_no_auto
+sudo chmod 644 gondor_no_auto
+sudo mv gondor_no_auto /etc/apt/apt.conf.d/20auto-upgrades
+
+wget https://raw.githubusercontent.com/cyberbonbon/linux_install/main/gondor_apt_retries
+sudo chown root:root gondor_apt_retries
+sudo chmod 644 gondor_apt_retries
+sudo mv gondor_apt_retries /etc/apt/apt.conf.d/80-wave-timeouts
+
+
 # Perform a system update
-sudo apt-get update && sudo apt-get dist-upgrade -y
+sudo apt-get -o DPkg::Lock::Timeout=300 update && sudo apt-get -o DPkg::Lock::Timeout=300 dist-upgrade -y
 
 # Disable NTP while configuring new settings
 sudo timedatectl set-ntp off
