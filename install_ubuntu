@@ -85,7 +85,7 @@ sudo timedatectl set-ntp on
 
 # Create Mounts for NFS shares
 sudo mkdir -p /nfs/MinasTirith/
-#sudo mkdir -p /nfs/Ecthelion/
+sudo mkdir -p /nfs/Ecthelion/
 
 # Configure auto.master
 echo "/nfs /etc/auto.nfs --timeout=30" | sudo tee -a /etc/auto.master
